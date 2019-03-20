@@ -26,13 +26,13 @@ module.exports = () => {
 
             let options = {
                 toUserName: userData.FromUserName,
-                formUserName: userData.ToUserName,
+                fromUserName: userData.ToUserName,
                 createTime: Date.now(),
                 type:'text',
-                connect: '我扶摇不要面子的吗?'
+                content: '我扶摇不要面子的吗?'
             };
 
-            if (userData.Content === '1') {
+            if (userData.Content === '三岁') {
                 options.content = '大吉大利,今晚吃鸡';
             } else if (userData.Content && userData.Content.indexOf('2') !== -1) {
                 options.content = '你属什么? \n 我属于你';
