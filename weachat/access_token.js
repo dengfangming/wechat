@@ -5,7 +5,6 @@ const {writeFile} = require('fs');
     const appId = 'wx1ba4d19ae6f37de1';
     const appSecret = '42d74fc012c3ed714aa146d38a073386';
     const url = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appId}&secret=${appSecret}`;
-    console.log(url);
     const result = await rp({method: 'GET', url, json: true});
     result.expires_in = Date.now() + 7200000 - 300000;
 

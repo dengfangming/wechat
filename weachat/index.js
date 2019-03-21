@@ -1,6 +1,6 @@
 const rp = require('request-promise-native');
 const fetchAccessToken = require('./access_token');
-
+const URL_PREFIX = 'https://api.weixin.qq.com/cgi-bin/';
 const menu = {
     "button":[
     {
@@ -85,9 +85,9 @@ const menu = {
 
  async function createMenu() {
      const { access_token } = await fetchAccessToken();
-     const url =`https://api.weixin.qq.com/cgi-bin/menu/create?access_token= ${access_token}`;
+     const url =`${URL_PREFIX}menu/create?access_token= ${access_token}`;
 
-     const result = rp({ method: 'POST', url, json : true, body: menu});
+     const result = rp({ method: 'POST', url, json : true, body: menu});;
 
      return result;
      // 模版字符串
@@ -95,14 +95,42 @@ const menu = {
 
 async function deleteMenu() {
     const { access_token } = await fetchAccessToken();
-    const url =`https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=${access_token}`;
+    const url =`${URL_PREFIX}menu/delete?access_token=${access_token}`;
 
     const result = rp({ method: 'GET', url, json : true});
     return result;
 }
+//创建标签
+async function creatorTag(name) {
+    const { access_token } = await fetchAccessToken();
+    const url =`${URL_PREFIX}tags/create?access_token=${access_token}`;
+
+    const result = rp({ method: 'POST', url, json : true, body: {tag :{ name}}});
+    return result;
+}
+// 获取标签下粉丝列表
+async function beanTag(tagid, next_openid = '') {
+    const { access_token } = await fetchAccessToken();
+    const url =`${URL_PREFIX}user/tag/get?access_token=${access_token}`;
+
+    const result = rp({ method: 'POST', url, json : true, body: {tagid, next_openid}});
+    return result;
+}
+//批量为用户打标签
+async function membersTag( openid_list, tagid) {
+    const { access_token } = await fetchAccessToken();
+    const url =`${URL_PREFIX}tags/members/batchtagging?access_token=${access_token}`;
+
+    const result = rp({ method: 'POST', url, json : true, body: { openid_list, tagid}});
+    return result;
+}
+
+
 (async () => {
-    let result = await deleteMenu();
-    console.log(result);
-    result = await createMenu();
-    console.log(result);
+    let result1 = await creatorTag('绝地求生666666');
+    console.log(result1);
+    let result2 = await membersTag(['oVFD952vUvpfdYbp_J_OWSfDeqo0','oVFD953hwVGFYXz4rVRnkcF00SZ4'],result1.tag.id);
+    console.log(result2);
+    let result3 = await beanTag(result1.tag.id);
+    console.log(result3);
 })();
