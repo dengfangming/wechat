@@ -1,6 +1,8 @@
 const express = require('express');
+const sha1 = require('sha1');
 const reply = require('./reply');
 const fetchTicket = require('./weachat/ticket');
+const {url,appId} = require('./config/index');
 const app = express();
 
 app.set('views', 'views');
@@ -10,9 +12,8 @@ app.set('view engine', 'ejs');
 // 这里需要注意的是所有参数名均为小写字符。对string1作sha1加密，字段名和字段值都采用原始值，不进行URL 转义。
 app.get('/search', async (req,res) => {
     const { ticket } = await fetchTicket();
-    const  url = 'http://4ff2de43.ngrok.io/search';
     const noncestr = Math.random().toString().slice(2);
-    const timestamp = Math.round(Data.now()/1000);
+    const timestamp = Math.round(Date.now()/1000);
 
     const arr = [
         `jsapi_ticket=${ticket}`,
@@ -27,7 +28,7 @@ app.get('/search', async (req,res) => {
 });
 app.use(reply());
 
-app.listen(6000, err => {
+app.listen(3666, err => {
     if (!err) {
         console.log('服务器启动成功');
     } else {

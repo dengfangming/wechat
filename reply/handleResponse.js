@@ -1,4 +1,4 @@
-
+const { url } = require('../config/index');
 module.exports = (userData) => {
     let options = {
         toUserName: userData.FromUserName,
@@ -14,7 +14,7 @@ module.exports = (userData) => {
         } else if (userData.Content && userData.Content.indexOf('挽留') !== -1) {
             options.content = '我挽留不是狗吗? \n 那谁是狗?';
         } else if (userData.Content='3'){
-            options.content ='<a href="http://4ff2de43.ngrok.io/search"></a>'
+            options.content =`<a href="${url}/search">跳转网页</a>`
         }
     } else if (userData.MsgType === 'voice') {
         options.content = userData.Recognition;
