@@ -127,7 +127,7 @@ async function membersTag( openid_list, tagid) {
 
 
 (async () => {
-    let result1 = await creatorTag('绝地求生666666');
+    let result1 = await creatorTag('绝地求生6666666');
     console.log(result1);
     let result2 = await membersTag(['oVFD952vUvpfdYbp_J_OWSfDeqo0','oVFD953hwVGFYXz4rVRnkcF00SZ4'],result1.tag.id);
     console.log(result2);

@@ -13,6 +13,8 @@ module.exports = (userData) => {
             options.content = '大吉大利,今晚吃鸡';
         } else if (userData.Content && userData.Content.indexOf('挽留') !== -1) {
             options.content = '我挽留不是狗吗? \n 那谁是狗?';
+        } else if (userData.Content='3'){
+            options.content ='<a href="http://4ff2de43.ngrok.io/search"></a>'
         }
     } else if (userData.MsgType === 'voice') {
         options.content = userData.Recognition;
@@ -28,7 +30,7 @@ module.exports = (userData) => {
                 options.content = '欢迎扫码关注'
             }
         } else if (userData.event ==='unsubscribe') {
-            console.log('无情取关')
+            console.log('无情取关');
             options.content = '';
         } else if (userData.Event === 'CLICK') {
             options.content = '用户点击了菜单';
